@@ -9,11 +9,18 @@ import java.io.*;
 
 public class jsoupTest {
     public static void main(String[] args) throws IOException {
+        jsoupTest j = new jsoupTest();
+        j.paimage();
+
+    }
+
+    public void padownload() throws IOException {//爬下载连接
         //获取编辑推荐页
         Document document = Jsoup.connect("https://www.80s.tw/ju/12462")
                 //模拟火狐浏览器
-                .userAgent("Mozilla/4.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)")
+                .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36")
                 .get();
+
 //        Elements body = document.select("img[src~=(?i)\\.(png|jpe?g)]");//图片
 //        Elements url = main.select("div").select("div:nth-child(2)")
 //                .select("h2").select("a[class=question_link]");
@@ -23,12 +30,12 @@ public class jsoupTest {
         Element zoom = document.getElementById("cpdl2list");
         Elements div = zoom.select("div").select("a[href]");
         OutputStream o = new FileOutputStream(new File("C:\\Users\\Mrs.ChongJie\\Desktop\\爱情回来了.txt"));
-//        for (Element t : div) {
-//            System.out.println(t.attr("href"));
-//            byte[] hrefs = t.attr("href").toString().getBytes();
-//            o.write(hrefs);
-//        }
-        o.write(div.toString().getBytes());
+        for (Element t : div) {
+            System.out.println(t.attr("href"));
+            byte[] hrefs = t.attr("href").toString().getBytes();
+            o.write(hrefs);
+        }
+//        o.write(div.toString().getBytes());
 //        byte[] bytes = div.toString().getBytes();
 
 
@@ -55,4 +62,18 @@ public class jsoupTest {
 //                    + "\n" + "回答：" + answer.text());
 //        }
     }
+
+
+    public void paimage() throws IOException {//爬取网页图片
+        Document document = Jsoup.connect("https://image.baidu.com/")
+                //模拟火狐浏览器
+                .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36")
+                .get();
+        Elements bd_home_wrapper = document.getElementsByClass("bd_home_wrapper");
+        System.out.println(bd_home_wrapper.toString());
+        OutputStream out = new FileOutputStream(new File("C:\\\\Users\\\\Mrs.ChongJie\\\\Desktop\\\\新浪.txt"));
+//        out.write(plc_frame.toString().getBytes());
+
+    }
 }
+
